@@ -1,0 +1,446 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}Fitness Dashboard{% endblock %}
+{% block page_subheading %}Track your daily performance, routine, and nutrition{% endblock %}
+
+{% block content %}
+<!-- ====================================================================
+     WELCOME SECTION
+     ==================================================================== -->
+<div style="background: linear-gradient(135deg, #10b981 0%, #047857 100%); border-radius: var(--radius-xl); padding: 2.25rem 2.5rem; color: #ffffff; margin-bottom: 2rem; box-shadow: var(--shadow-md); position: relative; overflow: hidden;">
+  <div style="position: absolute; right: -20px; bottom: -20px; font-size: 11rem; opacity: 0.08; pointer-events: none;">
+    <i class="fa-solid fa-person-running"></i>
+  </div>
+  
+  <div style="max-width: 620px; position: relative; z-index: 2;">
+    <span style="display: inline-block; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.75rem;">
+      <i class="fa-solid fa-fire-flame-curved"></i> Daily Habit Tracker
+    </span>
+    <h2 style="font-size: 2.15rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem;">
+      Good Morning, Alex 👋
+    </h2>
+    <p style="font-size: 1.05rem; opacity: 0.95; line-height: 1.5; margin-bottom: 1.5rem;">
+      Let's make today a healthier day. You have 3 workouts completed this week and your hydration goal is on track.
+    </p>
+
+    <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
+      <button type="button" class="btn btn-secondary btn-sm btn-start-workout" style="font-weight: 700; color: var(--primary-dark);">
+        <i class="fa-solid fa-play"></i> Start Today's Workout
+      </button>
+      <a href="{% url 'chatbot' %}" class="btn btn-sm btn-outline-primary" style="color: #fff; border-color: rgba(255,255,255,0.5);">
+        <i class="fa-solid fa-robot"></i> Ask AI Assistant
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================
+     SUMMARY CARDS (4 METRICS)
+     ==================================================================== -->
+<div class="stats-cards-grid">
+  
+  <!-- Current Weight -->
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Current Weight</h5>
+      <div class="value">70 <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">kg</span></div>
+      <div class="stat-trend trend-up">
+        <i class="fa-solid fa-arrow-down"></i> -0.8 kg this month
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-green">
+      <i class="fa-solid fa-weight-scale"></i>
+    </div>
+  </div>
+
+  <!-- Target Weight -->
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Target Weight</h5>
+      <div class="value">65 <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">kg</span></div>
+      <div class="stat-trend" style="color: var(--primary);">
+        <i class="fa-solid fa-bullseye"></i> 5.0 kg to go
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-blue">
+      <i class="fa-solid fa-flag-checkered"></i>
+    </div>
+  </div>
+
+  <!-- BMI -->
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Calculated BMI</h5>
+      <div class="value">24.2</div>
+      <div class="stat-trend" style="color: var(--primary);">
+        <i class="fa-solid fa-circle-check"></i> Normal Range
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-orange">
+      <i class="fa-solid fa-calculator"></i>
+    </div>
+  </div>
+
+  <!-- Goal Progress -->
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Goal Progress</h5>
+      <div class="value">65%</div>
+      <div class="stat-trend trend-up">
+        <i class="fa-solid fa-arrow-trend-up"></i> On schedule
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-purple">
+      <i class="fa-solid fa-chart-pie"></i>
+    </div>
+  </div>
+
+</div>
+
+<!-- ====================================================================
+     MAIN DASHBOARD GRID (2 COLUMNS)
+     ==================================================================== -->
+<div class="dashboard-grid">
+  
+  <!-- Left Column: Workout Routine & Diet -->
+  <div style="display: flex; flex-direction: column; gap: 2rem;">
+    
+    <!-- Today's Workout Section -->
+    <div class="card">
+      <div class="card-header-clean">
+        <div>
+          <div class="card-title">
+            <i class="fa-solid fa-dumbbell" style="color: var(--primary);"></i>
+            <span>Today's Workout</span>
+          </div>
+          <div class="card-subtitle">Full Body Beginner Workout • 30 Mins • 260 kcal</div>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm btn-start-workout">
+          <i class="fa-solid fa-play"></i> Start Workout
+        </button>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Click the checkboxes as you complete each exercise to update your live routine progress:
+      </p>
+
+      <div class="workout-list">
+        <div class="workout-item completed">
+          <div class="workout-item-left">
+            <input type="checkbox" class="workout-checkbox dashboard-workout-check" checked>
+            <div>
+              <div class="workout-name">Warm-up</div>
+              <div class="workout-meta">Light mobility, dynamic joint rotations & leg swings</div>
+            </div>
+          </div>
+          <span style="font-size: 0.825rem; font-weight: 700; color: var(--primary);">5 min</span>
+        </div>
+
+        <div class="workout-item completed">
+          <div class="workout-item-left">
+            <input type="checkbox" class="workout-checkbox dashboard-workout-check" checked>
+            <div>
+              <div class="workout-name">Squats</div>
+              <div class="workout-meta">Bodyweight air squats with deep hip flexion</div>
+            </div>
+          </div>
+          <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-main);">3 × 15</span>
+        </div>
+
+        <div class="workout-item completed">
+          <div class="workout-item-left">
+            <input type="checkbox" class="workout-checkbox dashboard-workout-check" checked>
+            <div>
+              <div class="workout-name">Push-ups</div>
+              <div class="workout-meta">Knee or standard chest push-ups</div>
+            </div>
+          </div>
+          <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-main);">3 × 10</span>
+        </div>
+
+        <div class="workout-item">
+          <div class="workout-item-left">
+            <input type="checkbox" class="workout-checkbox dashboard-workout-check">
+            <div>
+              <div class="workout-name">Lunges</div>
+              <div class="workout-meta">Forward walking lunges (alternate legs)</div>
+            </div>
+          </div>
+          <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-main);">3 × 10</span>
+        </div>
+
+        <div class="workout-item">
+          <div class="workout-item-left">
+            <input type="checkbox" class="workout-checkbox dashboard-workout-check">
+            <div>
+              <div class="workout-name">Plank</div>
+              <div class="workout-meta">Forearm isometric core stabilization</div>
+            </div>
+          </div>
+          <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-main);">3 × 30 sec</span>
+        </div>
+
+        <div class="workout-item">
+          <div class="workout-item-left">
+            <input type="checkbox" class="workout-checkbox dashboard-workout-check">
+            <div>
+              <div class="workout-name">Cool Down</div>
+              <div class="workout-meta">Full body relaxing stretches & deep breathing</div>
+            </div>
+          </div>
+          <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-main);">5 min</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Diet Section -->
+    <div class="card">
+      <div class="card-header-clean">
+        <div>
+          <div class="card-title">
+            <i class="fa-solid fa-bowl-food" style="color: var(--primary);"></i>
+            <span>Today's Diet & Nutrition</span>
+          </div>
+          <div class="card-subtitle">Target: 1,605 kcal • 78g Protein</div>
+        </div>
+        <a href="{% url 'diet' %}" class="btn btn-secondary btn-sm">Full Meal Plan</a>
+      </div>
+
+      <div class="meals-grid">
+        
+        <!-- Breakfast -->
+        <div class="meal-card">
+          <div class="meal-header">
+            <span class="meal-type">Breakfast</span>
+            <span class="meal-time"><i class="fa-regular fa-clock"></i> 08:30 AM</span>
+          </div>
+          <div>
+            <div class="meal-name">Oats + Fruits</div>
+            <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Rolled oats, banana slices, blueberries & almond milk.
+            </p>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 0.6rem;">
+            <div class="meal-cals"><i class="fa-solid fa-fire" style="color: #f97316;"></i> 350 kcal</div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">14g Protein</span>
+          </div>
+        </div>
+
+        <!-- Lunch -->
+        <div class="meal-card">
+          <div class="meal-header">
+            <span class="meal-type">Lunch</span>
+            <span class="meal-time"><i class="fa-regular fa-clock"></i> 01:15 PM</span>
+          </div>
+          <div>
+            <div class="meal-name">Rice + Vegetables + Dal</div>
+            <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Steamed brown rice, mixed veggie stir-fry, and yellow lentil curry.
+            </p>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 0.6rem;">
+            <div class="meal-cals"><i class="fa-solid fa-fire" style="color: #f97316;"></i> 550 kcal</div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">22g Protein</span>
+          </div>
+        </div>
+
+        <!-- Evening Snack -->
+        <div class="meal-card">
+          <div class="meal-header">
+            <span class="meal-type">Evening Snack</span>
+            <span class="meal-time"><i class="fa-regular fa-clock"></i> 05:00 PM</span>
+          </div>
+          <div>
+            <div class="meal-name">Fruits + Nuts</div>
+            <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Crisp apple slices paired with raw almonds and walnuts.
+            </p>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 0.6rem;">
+            <div class="meal-cals"><i class="fa-solid fa-fire" style="color: #f97316;"></i> 180 kcal</div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">6g Protein</span>
+          </div>
+        </div>
+
+        <!-- Dinner -->
+        <div class="meal-card">
+          <div class="meal-header">
+            <span class="meal-type">Dinner</span>
+            <span class="meal-time"><i class="fa-regular fa-clock"></i> 08:00 PM</span>
+          </div>
+          <div>
+            <div class="meal-name">Chapati + Vegetables + Protein</div>
+            <p style="font-size: 0.775rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              2 whole-wheat rotis, sautéed greens, and grilled tofu/paneer.
+            </p>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 0.6rem;">
+            <div class="meal-cals"><i class="fa-solid fa-fire" style="color: #f97316;"></i> 480 kcal</div>
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">26g Protein</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column: Today's Goals & Progress Widgets -->
+  <div style="display: flex; flex-direction: column; gap: 2rem;">
+    
+    <!-- Today's Goal Progress Card -->
+    <div class="goal-progress-card">
+      <div class="card-title" style="margin-bottom: 0.25rem;">
+        <i class="fa-solid fa-bullseye" style="color: var(--primary);"></i>
+        <span>Today's Fitness Goal</span>
+      </div>
+      <div class="card-subtitle" style="margin-bottom: 1.5rem;">Daily Targets & Habits</div>
+
+      <!-- Workout Progress Item -->
+      <div class="goal-item">
+        <div class="goal-item-left">
+          <div class="goal-icon" style="background: var(--primary-subtle); color: var(--primary);">
+            <i class="fa-solid fa-person-walking"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Workout Progress</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">4 of 6 exercises done</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 1.1rem; font-weight: 800; color: var(--primary);" id="workoutProgressPct">70%</div>
+        </div>
+      </div>
+      <div class="progress-bar-custom" style="margin-bottom: 1.5rem;">
+        <div class="progress-fill" id="workoutProgressBar" style="width: 70%;"></div>
+      </div>
+
+      <!-- Water Intake Item with Interactive Counter -->
+      <div class="goal-item">
+        <div class="goal-item-left">
+          <div class="goal-icon" style="background: #eff6ff; color: var(--accent-blue);">
+            <i class="fa-solid fa-droplet"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Water Intake</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Target: 8 glasses (2.0L)</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 1.05rem; font-weight: 800; color: var(--accent-blue);" id="waterCountDisplay">
+            5 / 8 glasses
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar-custom" style="margin-bottom: 0.85rem;">
+        <div class="progress-fill" id="waterProgressBar" style="width: 62.5%; background: var(--accent-blue);"></div>
+      </div>
+
+      <!-- Interactive Water Buttons -->
+      <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-bottom: 1.5rem;">
+        <button type="button" id="btnSubWater" class="btn btn-secondary btn-sm" title="Remove glass">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+        <button type="button" id="btnAddWater" class="btn btn-outline-primary btn-sm" title="Add glass">
+          <i class="fa-solid fa-plus"></i> Log Glass
+        </button>
+      </div>
+
+      <!-- Daily Activity Steps Item -->
+      <div class="goal-item">
+        <div class="goal-item-left">
+          <div class="goal-icon" style="background: #fff7ed; color: var(--accent-orange);">
+            <i class="fa-solid fa-shoe-prints"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Daily Activity</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Goal: 10,000 steps</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-orange);">6,240</div>
+          <div style="font-size: 0.725rem; color: var(--text-muted);">steps</div>
+        </div>
+      </div>
+      <div class="progress-bar-custom">
+        <div class="progress-fill" style="width: 62.4%; background: var(--accent-orange);"></div>
+      </div>
+    </div>
+
+    <!-- Quick AI Motivation Card -->
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+        <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--primary-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.875rem; font-weight: 700; color: var(--text-main);">AI Coach Insight</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Updated 2 hours ago</div>
+        </div>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.5; margin-bottom: 1rem;">
+        "Consistency beats intensity. You're just 2 exercises away from completing today's target. Remember to take a 5-minute cool-down stretch afterwards."
+      </p>
+      <a href="{% url 'chatbot' %}" class="btn btn-outline-primary btn-sm" style="width: 100%;">
+        <i class="fa-solid fa-comments"></i> Ask AI Assistant
+      </a>
+    </div>
+
+    <!-- 30-Day Plan Shortcut -->
+    <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--primary);">Current Streak</div>
+        <div style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Day 5 of 30 🔥</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Lower Body & Glutes</div>
+      </div>
+      <a href="{% url 'plan_30days' %}" class="btn btn-primary btn-sm">
+        View Calendar
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ====================================================================
+     INTERACTIVE WORKOUT SESSION TIMER MODAL
+     ==================================================================== -->
+<div class="modal-overlay" id="workoutSessionModal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+          <i class="fa-solid fa-stopwatch"></i>
+        </div>
+        <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin: 0;">Workout in Progress</h4>
+      </div>
+      <button type="button" class="topbar-icon-btn" id="workoutModalClose" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" style="text-align: center; padding: 2.5rem 1.5rem;">
+      <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); background: var(--primary-subtle); padding: 0.25rem 0.75rem; border-radius: 9999px;">
+        Current Exercise: Squats (Set 1 of 3)
+      </span>
+      
+      <div style="font-size: 4rem; font-weight: 800; font-family: monospace; color: var(--text-main); margin: 1.5rem 0 0.5rem;" id="workoutTimerDisplay">
+        00:00
+      </div>
+      <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem;">
+        Perform 15 clean repetitions. Keep heels grounded and chest tall.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <button type="button" class="btn btn-secondary" id="workoutTimerPausePlay">
+          <i class="fa-solid fa-pause"></i> Pause
+        </button>
+        <button type="button" class="btn btn-primary" onclick="alert('Great job! Set completed.');">
+          <i class="fa-solid fa-forward"></i> Next Exercise
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

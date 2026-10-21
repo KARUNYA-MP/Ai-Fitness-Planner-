@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}Progress Tracking & Analytics{% endblock %}
+{% block page_subheading %}Biometric trends, adherence rates, and body composition analytics{% endblock %}
+
+{% block content %}
+<!-- Top Metrics Row -->
+<div class="stats-cards-grid">
+  
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Starting Weight</h5>
+      <div class="value">70.0 <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">kg</span></div>
+      <div class="stat-trend" style="color: var(--text-light);">Baseline on Sep 01</div>
+    </div>
+    <div class="stat-icon stat-icon-blue">
+      <i class="fa-solid fa-flag"></i>
+    </div>
+  </div>
+
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Current Weight</h5>
+      <div class="value">68.0 <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">kg</span></div>
+      <div class="stat-trend trend-up">
+        <i class="fa-solid fa-arrow-trend-down"></i> -2.0 kg lost total
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-green">
+      <i class="fa-solid fa-weight-scale"></i>
+    </div>
+  </div>
+
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Target Weight</h5>
+      <div class="value">65.0 <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">kg</span></div>
+      <div class="stat-trend" style="color: var(--primary);">
+        <i class="fa-solid fa-circle-check"></i> 40% of goal achieved
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-purple">
+      <i class="fa-solid fa-bullseye"></i>
+    </div>
+  </div>
+
+  <div class="stat-metric-card">
+    <div class="stat-data">
+      <h5>Workout Completion</h5>
+      <div class="value">82%</div>
+      <div class="stat-trend trend-up">
+        <i class="fa-solid fa-fire"></i> 18 of 22 sessions
+      </div>
+    </div>
+    <div class="stat-icon stat-icon-orange">
+      <i class="fa-solid fa-medal"></i>
+    </div>
+  </div>
+
+</div>
+
+<!-- Charts Row (Weight Progress Line Chart & Activity Bar Chart) -->
+<div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+  
+  <!-- Line Chart: Weight Progress -->
+  <div class="card">
+    <div class="card-header-clean">
+      <div>
+        <div class="card-title">
+          <i class="fa-solid fa-chart-line" style="color: var(--primary);"></i>
+          <span>Weight Progress Trend</span>
+        </div>
+        <div class="card-subtitle">Weekly weigh-in measurements (kg)</div>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" id="btnLogWeight">
+        <i class="fa-solid fa-plus"></i> Log Weight
+      </button>
+    </div>
+
+    <!-- Chart Container -->
+    <div style="height: 280px; position: relative; width: 100%;">
+      <canvas id="weightProgressChart"></canvas>
+    </div>
+
+    <!-- Weight Log Table Summary -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 1.5rem; text-align: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+      {% for log in weight_logs %}
+      <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.6rem 0.4rem;">
+        <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700;">{{ log.week }}</div>
+        <div style="font-size: 1rem; font-weight: 800; color: var(--text-main); margin-top: 0.2rem;">{{ log.weight }} kg</div>
+        <div style="font-size: 0.7rem; font-weight: 700; color: {% if '-' in log.change %}var(--primary){% else %}var(--text-light){% endif %};">
+          {{ log.change }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Bar Chart: Weekly Activity Steps -->
+  <div class="card">
+    <div class="card-header-clean">
+      <div>
+        <div class="card-title">
+          <i class="fa-solid fa-shoe-prints" style="color: #0284c7;"></i>
+          <span>Weekly Activity</span>
+        </div>
+        <div class="card-subtitle">Daily step count (Mon – Sun)</div>
+      </div>
+      <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); background: #eff6ff; padding: 0.25rem 0.65rem; border-radius: 9999px;">
+        Avg: 7,480 / day
+      </span>
+    </div>
+
+    <!-- Chart Container -->
+    <div style="height: 280px; position: relative; width: 100%;">
+      <canvas id="activityBarChart"></canvas>
+    </div>
+
+    <div style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem; display: flex; justify-content: space-between; font-size: 0.85rem;">
+      <span style="color: var(--text-muted);"><i class="fa-solid fa-fire" style="color: #f97316;"></i> Calories Burned:</span>
+      <strong style="color: var(--text-main);">5,420 kcal</strong>
+    </div>
+  </div>
+
+</div>
+
+<!-- Additional Analytics: Goal Progress & Calories / Meal Overview -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+  
+  <!-- Goal Progress Breakdown -->
+  <div class="card">
+    <div class="card-header-clean">
+      <div class="card-title">
+        <i class="fa-solid fa-list-check" style="color: var(--primary);"></i>
+        <span>Monthly Milestone Progress</span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.35rem;">
+          <span>Target Weight Loss (2.0 / 5.0 kg)</span>
+          <span style="color: var(--primary);">40%</span>
+        </div>
+        <div class="progress-bar-custom">
+          <div class="progress-fill" style="width: 40%;"></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.35rem;">
+          <span>Workout Consistency (18 / 22 workouts)</span>
+          <span style="color: #0284c7;">82%</span>
+        </div>
+        <div class="progress-bar-custom">
+          <div class="progress-fill" style="width: 82%; background: #0284c7;"></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.35rem;">
+          <span>Daily Hydration Adherence (24 / 28 days)</span>
+          <span style="color: #0ea5e9;">86%</span>
+        </div>
+        <div class="progress-bar-custom">
+          <div class="progress-fill" style="width: 86%; background: #0ea5e9;"></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.35rem;">
+          <span>Dietary Calorie Target Compliance</span>
+          <span style="color: #f97316;">90%</span>
+        </div>
+        <div class="progress-bar-custom">
+          <div class="progress-fill" style="width: 90%; background: #f97316;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calorie & Meal Overview Card -->
+  <div class="card">
+    <div class="card-header-clean">
+      <div class="card-title">
+        <i class="fa-solid fa-pie-chart" style="color: var(--primary);"></i>
+        <span>Calorie & Meal Adherence</span>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-around; padding: 1rem 0; text-align: center;">
+      <div>
+        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Avg Daily Intake</div>
+        <div style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">1,580 <span style="font-size: 0.8rem; font-weight: 600;">kcal</span></div>
+        <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">-25 kcal under target</span>
+      </div>
+
+      <div style="width: 1px; height: 60px; background: var(--border);"></div>
+
+      <div>
+        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Avg Daily Burn</div>
+        <div style="font-size: 1.6rem; font-weight: 800; color: #f97316; margin-top: 0.25rem;">2,080 <span style="font-size: 0.8rem; font-weight: 600;">kcal</span></div>
+        <span style="font-size: 0.75rem; color: #ea580c; font-weight: 700;">500 kcal Deficit</span>
+      </div>
+    </div>
+
+    <div style="background: var(--bg-card-subtle); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--border); margin-top: 1rem;">
+      <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem;">
+        <i class="fa-solid fa-sparkles" style="color: var(--primary);"></i> AI Health Assessment
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+        Your metabolic deficit is optimal at 500 kcal/day, yielding an average fat loss of ~0.5 kg weekly without muscle catabolism.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Log Weight Modal -->
+<div class="modal-overlay" id="logWeightModal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin: 0;">Log Today's Weight</h4>
+      <button type="button" class="topbar-icon-btn" id="logWeightClose" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="logWeightForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="inputNewWeight">Current Weight (kg)</label>
+          <div style="position: relative;">
+            <input type="number" step="0.1" id="inputNewWeight" class="form-control" placeholder="67.5" value="67.5" required>
+            <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-light);">kg</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Measurement Date</label>
+          <input type="date" class="form-control" value="2026-09-25">
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          Submitting will append a new data point to your interactive weight line chart instantly.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-check"></i> Save Measurement
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

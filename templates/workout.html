@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}Workout Planner{% endblock %}
+{% block page_subheading %}Structured movement routines with sets, reps, and form guidance{% endblock %}
+
+{% block content %}
+<!-- Top Header Banner -->
+<div class="card" style="margin-bottom: 2rem; padding: 2rem 2.25rem; border-radius: var(--radius-xl);">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <span class="section-pill" style="margin-bottom: 0;">Routine Schedule</span>
+        <span style="font-size: 0.75rem; background: var(--primary-subtle); color: var(--primary-dark); font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 9999px;">
+          Difficulty: {{ difficulty|default:"Beginner" }}
+        </span>
+      </div>
+      <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+        {{ workout_title|default:"Full Body Beginner Blast" }}
+      </h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 650px;">
+        Designed to activate major muscle groups, elevate core temperature, and burn calories with zero gym equipment required.
+      </p>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+      <div style="display: flex; gap: 1rem;">
+        <div style="text-align: center; background: var(--bg-card-subtle); padding: 0.6rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Duration</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);"><i class="fa-regular fa-clock" style="color: var(--primary);"></i> 30 Mins</div>
+        </div>
+        <div style="text-align: center; background: var(--bg-card-subtle); padding: 0.6rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Burn</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: #f97316;"><i class="fa-solid fa-fire"></i> ~260 kcal</div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-lg btn-start-workout">
+        <i class="fa-solid fa-play"></i>
+        <span>Start Workout</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise Filter Tabs -->
+<div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.25rem;">
+  <button class="btn btn-sm btn-primary">All (6 Exercises)</button>
+  <button class="btn btn-sm btn-secondary">Warm-up & Cardio</button>
+  <button class="btn btn-sm btn-secondary">Lower Body</button>
+  <button class="btn btn-sm btn-secondary">Upper Body</button>
+  <button class="btn btn-sm btn-secondary">Core</button>
+</div>
+
+<!-- Exercises Grid (6 Exercises) -->
+<div class="exercises-grid">
+  {% for ex in exercises %}
+  <div class="exercise-card">
+    
+    <div class="exercise-header">
+      <div style="display: flex; align-items: center; gap: 0.85rem;">
+        <div class="exercise-icon-box">
+          <i class="fa-solid {{ ex.icon }}"></i>
+        </div>
+        <div class="exercise-info">
+          <h4>{{ ex.name }}</h4>
+          <p>{{ ex.category }}</p>
+        </div>
+      </div>
+      <span style="font-size: 0.7rem; font-weight: 700; background: var(--primary-subtle); color: var(--primary-dark); padding: 0.2rem 0.55rem; border-radius: 9999px;">
+        {{ ex.badge }}
+      </span>
+    </div>
+
+    <!-- 4 Metrics: Sets, Repetitions, Duration, Rest Time -->
+    <div class="exercise-metrics">
+      <div class="metric-col">
+        <h6>Sets</h6>
+        <p>{{ ex.sets }}</p>
+      </div>
+      <div class="metric-col">
+        <h6>Reps</h6>
+        <p>{{ ex.reps }}</p>
+      </div>
+      <div class="metric-col">
+        <h6>Duration</h6>
+        <p>{{ ex.duration }}</p>
+      </div>
+      <div class="metric-col">
+        <h6>Rest</h6>
+        <p>{{ ex.rest }}</p>
+      </div>
+    </div>
+
+    <!-- Coaching Form Tip -->
+    <div class="exercise-tip">
+      <strong><i class="fa-solid fa-lightbulb" style="color: #f59e0b;"></i> Form Cue:</strong> {{ ex.tip }}
+    </div>
+
+    <!-- Actions -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1.25rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+      <span style="font-size: 0.775rem; color: var(--text-muted);">
+        <i class="fa-solid fa-signal" style="color: var(--primary);"></i> {{ ex.difficulty }}
+      </span>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="this.classList.toggle('btn-primary'); this.textContent = this.classList.contains('btn-primary') ? 'Done ✓' : 'Mark Done';">
+        Mark Done
+      </button>
+    </div>
+
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Bottom CTA Bar -->
+<div style="margin-top: 3rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h4 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Need assistance modifying these exercises?</h4>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Our AI Fitness Assistant can provide lower-impact substitutions or advanced progressions.</p>
+  </div>
+  <a href="{% url 'chatbot' %}" class="btn btn-outline-primary btn-sm">
+    <i class="fa-solid fa-comments"></i> Ask AI for Modifications
+  </a>
+</div>
+
+<!-- Session Timer Modal -->
+<div class="modal-overlay" id="workoutSessionModal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+          <i class="fa-solid fa-stopwatch"></i>
+        </div>
+        <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin: 0;">Workout in Progress</h4>
+      </div>
+      <button type="button" class="topbar-icon-btn" id="workoutModalClose" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" style="text-align: center; padding: 2.5rem 1.5rem;">
+      <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-dark); background: var(--primary-subtle); padding: 0.25rem 0.75rem; border-radius: 9999px;">
+        Active Session: Full Body Beginner Blast
+      </span>
+      
+      <div style="font-size: 4rem; font-weight: 800; font-family: monospace; color: var(--text-main); margin: 1.5rem 0 0.5rem;" id="workoutTimerDisplay">
+        00:00
+      </div>
+      <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem;">
+        Exercise 1: Jumping Jacks (30 reps). Keep breathing smooth and controlled.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <button type="button" class="btn btn-secondary" id="workoutTimerPausePlay">
+          <i class="fa-solid fa-pause"></i> Pause
+        </button>
+        <button type="button" class="btn btn-primary" onclick="alert('Moving to next exercise: Squats');">
+          <i class="fa-solid fa-forward"></i> Next Exercise
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="max-width: 960px; margin: 2rem auto 4rem; padding: 0 1.5rem;">
+
+  <!-- Step Indicator -->
+  <div class="stepper-container">
+    <div class="stepper">
+      <div class="stepper-progress" style="width: 65%;"></div>
+
+      <a href="{% url 'assessment' %}" class="step-item completed">
+        <div class="step-number"><i class="fa-solid fa-check"></i></div>
+        <span class="step-title">Personal Details</span>
+      </a>
+
+      <div class="step-item active">
+        <div class="step-number">02</div>
+        <span class="step-title">Fitness Goal</span>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">03</div>
+        <span class="step-title">Your Plan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Card -->
+  <div class="card" style="padding: 2.75rem 2.5rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);">
+    
+    <div style="text-align: center; margin-bottom: 2.75rem;">
+      <span class="section-pill">Step 02 of 03</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin: 0.5rem 0 0.35rem;">
+        What Is Your Primary Fitness Goal?
+      </h1>
+      <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+        Our AI algorithms customize the workout intensity, rep ranges, and macronutrient targets specifically for this objective.
+      </p>
+    </div>
+
+    <!-- Goals Cards Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+      
+      <!-- Goal 1: Weight Loss -->
+      <div class="card goal-selectable-card selected" data-goal-id="weight_loss" style="cursor: pointer; position: relative; border-width: 2px; padding: 1.75rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="font-size: 2.5rem; line-height: 1;">🔥</div>
+          <span style="font-size: 0.725rem; font-weight: 800; background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; padding: 0.2rem 0.6rem; border-radius: 9999px;">
+            Most Popular
+          </span>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem;">Weight Loss</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem; min-height: 44px;">
+          Lose excess weight and improve overall fitness through metabolic conditioning and calorie-smart nutrition.
+        </p>
+        <button type="button" class="btn btn-outline-primary btn-sm goal-select-btn" style="width: 100%;">
+          Selected ✓
+        </button>
+      </div>
+
+      <!-- Goal 2: Weight Gain -->
+      <div class="card goal-selectable-card" data-goal-id="weight_gain" style="cursor: pointer; position: relative; border-width: 2px; padding: 1.75rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="font-size: 2.5rem; line-height: 1;">💪</div>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem;">Weight Gain</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem; min-height: 44px;">
+          Build healthy body mass and strength with muscle hypertrophy training and calorie-surplus dietary advice.
+        </p>
+        <button type="button" class="btn btn-outline-primary btn-sm goal-select-btn" style="width: 100%;">
+          Select Goal
+        </button>
+      </div>
+
+      <!-- Goal 3: Weight Maintenance -->
+      <div class="card goal-selectable-card" data-goal-id="weight_maintenance" style="cursor: pointer; position: relative; border-width: 2px; padding: 1.75rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="font-size: 2.5rem; line-height: 1;">⚖️</div>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem;">Weight Maintenance</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem; min-height: 44px;">
+          Maintain your current weight and stay active while fine-tuning muscle definition and establishing sustainable vitality.
+        </p>
+        <button type="button" class="btn btn-outline-primary btn-sm goal-select-btn" style="width: 100%;">
+          Select Goal
+        </button>
+      </div>
+
+      <!-- Goal 4: Improve Fitness -->
+      <div class="card goal-selectable-card" data-goal-id="improve_fitness" style="cursor: pointer; position: relative; border-width: 2px; padding: 1.75rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="font-size: 2.5rem; line-height: 1;">🏃</div>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem;">Improve Fitness</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem; min-height: 44px;">
+          Improve stamina, strength, flexibility, and overall fitness with dynamic functional athletic sessions.
+        </p>
+        <button type="button" class="btn btn-outline-primary btn-sm goal-select-btn" style="width: 100%;">
+          Select Goal
+        </button>
+      </div>
+
+      <!-- Goal 5: Build Strength -->
+      <div class="card goal-selectable-card" data-goal-id="build_strength" style="cursor: pointer; position: relative; border-width: 2px; padding: 1.75rem;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="font-size: 2.5rem; line-height: 1;">🏋️</div>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem;">Build Strength</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem; min-height: 44px;">
+          Develop strength through structured progressive resistance workouts targeting major compound muscle groups.
+        </p>
+        <button type="button" class="btn btn-outline-primary btn-sm goal-select-btn" style="width: 100%;">
+          Select Goal
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Bottom Actions -->
+    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 2rem;">
+      <a href="{% url 'assessment' %}" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back to Assessment</span>
+      </a>
+
+      <button type="button" id="goalContinueBtn" class="btn btn-primary btn-lg">
+        <span>Generate My BMI & Plan</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}User Profile{% endblock %}
+{% block page_subheading %}Manage personal biometric credentials, targets, and preferences{% endblock %}
+
+{% block content %}
+<div class="profile-card-main">
+  
+  <!-- Profile Cover Banner -->
+  <div class="profile-cover"></div>
+
+  <!-- Profile Details Bar (Avatar + Name + Edit Button) -->
+  <div class="profile-details-bar">
+    <div style="display: flex; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap;">
+      <div class="profile-avatar-lg">
+        AJ
+      </div>
+      <div>
+        <h2 style="font-size: 1.65rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.2rem;" id="profileNameDisplay">
+          {{ profile.name|default:"Alex Johnson" }}
+        </h2>
+        <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <span><i class="fa-regular fa-envelope"></i> {{ profile.email|default:"alex.johnson@example.com" }}</span>
+          <span>•</span>
+          <span style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-crown"></i> {{ profile.membership_plan|default:"AI Fitness Pro" }}</span>
+          <span>•</span>
+          <span>Member since {{ profile.member_since|default:"Aug 2026" }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-primary" id="btnEditProfile">
+        <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+      </button>
+    </div>
+  </div>
+
+  <!-- Profile Parameters Information Grid -->
+  <div class="profile-info-grid">
+    
+    <!-- Age -->
+    <div class="profile-info-item">
+      <h6>Age</h6>
+      <p id="profileAgeDisplay">{{ profile.age|default:28 }} years</p>
+    </div>
+
+    <!-- Gender -->
+    <div class="profile-info-item">
+      <h6>Gender</h6>
+      <p>{{ profile.gender|default:"Male" }}</p>
+    </div>
+
+    <!-- Height -->
+    <div class="profile-info-item">
+      <h6>Height</h6>
+      <p id="profileHeightDisplay">{{ profile.height|default:"170 cm" }}</p>
+    </div>
+
+    <!-- Current Weight -->
+    <div class="profile-info-item">
+      <h6>Current Weight</h6>
+      <p id="profileWeightDisplay">{{ profile.current_weight|default:"70 kg" }}</p>
+    </div>
+
+    <!-- Target Weight -->
+    <div class="profile-info-item">
+      <h6>Target Weight</h6>
+      <p id="profileTargetDisplay" style="color: var(--primary);">{{ profile.target_weight|default:"65 kg" }}</p>
+    </div>
+
+    <!-- Fitness Goal -->
+    <div class="profile-info-item">
+      <h6>Primary Fitness Goal</h6>
+      <p><span style="margin-right: 0.3rem;">🔥</span> {{ profile.fitness_goal|default:"Weight Loss" }}</p>
+    </div>
+
+    <!-- Activity Level -->
+    <div class="profile-info-item">
+      <h6>Activity Level</h6>
+      <p>{{ profile.activity_level|default:"Moderately Active" }}</p>
+    </div>
+
+    <!-- Fitness Level -->
+    <div class="profile-info-item">
+      <h6>Fitness Level</h6>
+      <p>{{ profile.fitness_level|default:"Beginner" }}</p>
+    </div>
+
+    <!-- Food Preference -->
+    <div class="profile-info-item">
+      <h6>Food Preference</h6>
+      <p><i class="fa-solid fa-leaf" style="color: var(--primary); margin-right: 0.3rem;"></i> {{ profile.food_preference|default:"Vegetarian" }}</p>
+    </div>
+
+    <!-- Workout Preference -->
+    <div class="profile-info-item">
+      <h6>Workout Preference</h6>
+      <p><i class="fa-solid fa-house" style="color: var(--accent-blue); margin-right: 0.3rem;"></i> {{ profile.workout_preference|default:"Home Workout" }}</p>
+    </div>
+
+    <!-- Daily Calorie Target -->
+    <div class="profile-info-item">
+      <h6>Daily Calorie Target</h6>
+      <p>{{ profile.daily_calorie_goal|default:"1,650 kcal" }}</p>
+    </div>
+
+    <!-- Daily Water Goal -->
+    <div class="profile-info-item">
+      <h6>Daily Water Goal</h6>
+      <p>{{ profile.daily_water_goal|default:"8 glasses (2.5L)" }}</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Fitness Milestones & Achievements -->
+<div class="card" style="border-radius: var(--radius-xl); padding: 2rem;">
+  <div class="card-title" style="margin-bottom: 0.5rem;">
+    <i class="fa-solid fa-medal" style="color: #eab308;"></i>
+    <span>Badges & Milestones</span>
+  </div>
+  <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+    Track badges awarded for consistency and daily habit achievements.
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+    
+    <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem; text-align: center;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">🔥</div>
+      <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-main);">7-Day Streak</div>
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Completed 7 days in a row</div>
+    </div>
+
+    <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem; text-align: center;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">💧</div>
+      <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-main);">Hydration Master</div>
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Met water goal for 10 days</div>
+    </div>
+
+    <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem; text-align: center;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">⚡</div>
+      <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-main);">First 5K Steps</div>
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Walked over 5,000 steps</div>
+    </div>
+
+    <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem; text-align: center;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">🏋️</div>
+      <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-main);">Core Warrior</div>
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">Completed 10 plank sets</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal-overlay" id="profileEditModal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin: 0;">Edit Personal Profile</h4>
+      <button type="button" class="topbar-icon-btn" id="profileEditClose" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="profileEditForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="profileEditName">Full Name</label>
+          <input type="text" id="profileEditName" class="form-control" value="Alex Johnson" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="profileEditAge">Age</label>
+            <input type="number" id="profileEditAge" class="form-control" value="28" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="profileEditWeight">Current Weight (kg)</label>
+            <input type="number" id="profileEditWeight" class="form-control" value="70" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profileEditTargetWeight">Target Weight (kg)</label>
+          <input type="number" id="profileEditTargetWeight" class="form-control" value="65" required>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-check"></i> Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

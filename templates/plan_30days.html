@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}30-Day Fitness Plan{% endblock %}
+{% block page_subheading %}Track your monthly progressive overload journey day by day{% endblock %}
+
+{% block content %}
+<!-- Top Plan Progress Banner -->
+<div class="card" style="margin-bottom: 2.5rem; padding: 2rem 2.25rem; border-radius: var(--radius-xl);">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+    <div>
+      <span class="section-pill">Transformation Calendar</span>
+      <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+        Your 30-Day Fitness Journey
+      </h1>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+        4 focused weekly phases calibrated for progressive cardiovascular and muscular adaptation.
+      </p>
+    </div>
+
+    <!-- Progress Stats -->
+    <div style="display: flex; align-items: center; gap: 2rem;">
+      <div>
+        <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Completed</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">4 / 30 Days</div>
+      </div>
+      <div>
+        <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Current Streak</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: #f97316;">Day 5 🔥</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 1.5rem;">
+    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+      <span style="color: var(--text-main);">Overall 30-Day Completion</span>
+      <span style="color: var(--primary);">13%</span>
+    </div>
+    <div class="progress-bar-custom">
+      <div class="progress-fill" style="width: 13.3%;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Legend Bar -->
+<div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; background: #fff; padding: 0.85rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+  <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-muted);">Visual States:</span>
+  <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600;">
+    <span class="day-status-pill status-check" style="width: 16px; height: 16px;"><i class="fa-solid fa-check" style="font-size: 0.55rem;"></i></span>
+    <span>Completed</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600;">
+    <span class="day-status-pill status-active-dot" style="width: 12px; height: 12px;"></span>
+    <span style="color: var(--primary-dark); font-weight: 700;">Today's Workout</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600;">
+    <span style="width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--border); background: #fff;"></span>
+    <span>Upcoming</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600;">
+    <span style="width: 12px; height: 12px; border-radius: 50%; border: 1px dashed #cbd5e1; background: #f8fafc;"></span>
+    <span>Rest Day</span>
+  </div>
+  <span style="margin-left: auto; font-size: 0.775rem; color: var(--text-light);"><i class="fa-solid fa-hand-pointer"></i> Click any day to view routine details</span>
+</div>
+
+<!-- 4 Weekly Calendar Sections -->
+{% for week in weeks %}
+<div class="week-container">
+  
+  <div class="week-title-badge">
+    <span style="background: var(--primary); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem;">
+      {{ week.week_number }}
+    </span>
+    <span>{{ week.title }}</span>
+    <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-left: 0.5rem;">— {{ week.description }}</span>
+  </div>
+
+  <div class="calendar-days-grid">
+    {% for d in week.days %}
+    <div class="day-card {{ d.status }}" 
+         data-day="{{ d.day }}" 
+         data-title="{{ d.title }}" 
+         data-duration="{{ d.duration }}" 
+         data-cals="{{ d.cals }}" 
+         data-status="{{ d.status }}"
+         title="Click to view Day {{ d.day }} details">
+      
+      <div class="day-card-header">
+        <span class="day-number">DAY {{ d.day }}</span>
+        
+        {% if d.status == 'completed' %}
+          <span class="day-status-pill status-check"><i class="fa-solid fa-check"></i></span>
+        {% elif d.status == 'today' %}
+          <span class="day-status-pill status-active-dot"></span>
+        {% elif d.status == 'rest' %}
+          <span style="font-size: 0.75rem;">🧘</span>
+        {% else %}
+          <span style="font-size: 0.65rem; color: var(--text-light);"><i class="fa-regular fa-circle"></i></span>
+        {% endif %}
+      </div>
+
+      <div class="day-title">
+        {{ d.title }}
+      </div>
+
+      <div class="day-footer">
+        <span><i class="fa-regular fa-clock"></i> {{ d.duration }}</span>
+        <span>{{ d.cals }}</span>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endfor %}
+
+<!-- Day Detail Interactive Modal -->
+<div class="modal-overlay" id="dayDetailModal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+          <i class="fa-regular fa-calendar-check"></i>
+        </div>
+        <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin: 0;" id="modalDayTitle">
+          Day Details
+        </h4>
+      </div>
+      <button type="button" class="topbar-icon-btn" id="modalDayClose" style="width: 32px; height: 32px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; background: var(--bg-card-subtle); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Session Focus</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);" id="modalDayFocus">Routine</div>
+        </div>
+        <div style="text-align: right;">
+          <span id="modalDayStatus" style="font-size: 0.75rem; font-weight: 800; background: var(--primary-subtle); color: var(--primary-dark); padding: 0.25rem 0.6rem; border-radius: 9999px;">
+            TODAY
+          </span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.85rem; text-align: center;">
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Estimated Duration</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-main);" id="modalDayDuration">30 mins</div>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.85rem; text-align: center;">
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Target Calorie Burn</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #f97316;" id="modalDayCalories">260 kcal</div>
+        </div>
+      </div>
+
+      <h5 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem;">Scheduled Exercises:</h5>
+      <ul style="font-size: 0.875rem; color: var(--text-body); list-style: disc; padding-left: 1.25rem; line-height: 1.8;">
+        <li>Dynamic Warm-up & Hip Openers (5 mins)</li>
+        <li>Bodyweight Squats & Jump Squats (3 sets × 15 reps)</li>
+        <li>Push-ups / Incline Variations (3 sets × 10 reps)</li>
+        <li>Alternating Reverse Lunges (3 sets × 10 each)</li>
+        <li>Isometric Forearm Plank Hold (3 sets × 30 sec)</li>
+        <li>Cool Down Dynamic Hamstring & Chest Stretches (5 mins)</li>
+      </ul>
+    </div>
+
+    <div class="modal-footer">
+      <a href="{% url 'workout' %}" class="btn btn-secondary btn-sm">
+        <i class="fa-solid fa-list-check"></i> Open in Planner
+      </a>
+      <button type="button" class="btn btn-primary btn-sm" id="modalDayMarkDone">
+        <i class="fa-solid fa-check"></i> Mark as Completed
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

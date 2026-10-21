@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}AI Fitness Assistant{% endblock %}
+{% block page_subheading %}24/7 Intelligent Workout & Nutrition Guidance{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+  
+  <!-- Chat Header -->
+  <div class="chat-header">
+    <div class="chat-assistant-meta">
+      <div class="assistant-avatar">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <div>
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin: 0;">
+          AI Fitness Assistant 🤖
+        </h3>
+        <div class="chat-status-indicator">
+          <span class="status-pulsing-dot"></span>
+          <span>Online • Powered by Fitness Engine</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span style="font-size: 0.775rem; background: var(--primary-subtle); color: var(--primary-dark); font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 9999px; border: 1px solid var(--primary-light);">
+        Instant Answers
+      </span>
+    </div>
+  </div>
+
+  <!-- Messages Conversation Area -->
+  <div class="chat-messages-area" id="chatMessagesArea">
+    
+    <!-- AI Welcome Message -->
+    <div class="message-row ai-row">
+      <div class="message-avatar ai-avatar">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <div class="message-bubble">
+        Hello Alex! 👋 I'm your AI Fitness Assistant. I can help guide your workouts, customize meal choices, advise on recovery, or answer any fitness questions. How can I help you today?
+        <div class="message-time">10:00 AM</div>
+      </div>
+    </div>
+
+    <!-- Example User Message -->
+    <div class="message-row user-row">
+      <div class="message-avatar user-avatar">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="message-bubble">
+        Give me a beginner workout.
+        <div class="message-time">10:02 AM</div>
+      </div>
+    </div>
+
+    <!-- Example AI Response -->
+    <div class="message-row ai-row">
+      <div class="message-avatar ai-avatar">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <div class="message-bubble">
+        Here is a simple beginner workout:<br>
+        • 10 Bodyweight Squats<br>
+        • 10 Push-ups (knee or standard)<br>
+        • 20 Jumping Jacks<br>
+        • 30-Second Forearm Plank<br><br>
+        Perform 3 rounds with 60 seconds rest between rounds. Don't forget a 5-minute warm-up and to stay hydrated! 💧
+        <div class="message-time">10:02 AM</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick Suggestion Prompt Chips -->
+  <div class="chat-prompt-suggestions">
+    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); white-space: nowrap;">Suggestions:</span>
+    <button type="button" class="suggestion-chip" data-prompt="Give me a beginner workout.">
+      💪 Beginner Workout
+    </button>
+    <button type="button" class="suggestion-chip" data-prompt="High protein breakfast ideas">
+      🍳 High Protein Diet
+    </button>
+    <button type="button" class="suggestion-chip" data-prompt="How much water should I drink daily?">
+      💧 Daily Water Intake
+    </button>
+    <button type="button" class="suggestion-chip" data-prompt="How to speed up muscle recovery?">
+      🧘 Sore Muscles Recovery
+    </button>
+    <button type="button" class="suggestion-chip" data-prompt="Best strategy for sustainable weight loss?">
+      🔥 Fat Loss Strategy
+    </button>
+  </div>
+
+  <!-- Chat Input Field & Send Button -->
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" class="chat-input" placeholder="Ask your AI assistant anything about workouts, diet, or habits..." autocomplete="off">
+    <button type="button" id="chatSendBtn" class="chat-send-btn" title="Send Message">
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+
+</div>
+{% endblock %}

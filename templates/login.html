@@ -1,0 +1,447 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  /* ==========================================================================
+     CLEAN & PROFESSIONAL LOGIN STYLES (UNIVERSAL LOGIN FOR ANY USER)
+     ========================================================================== */
+  .auth-wrapper {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.25rem;
+    background-color: #f8fafc;
+    background-image: radial-gradient(circle at 50% 15%, rgba(16, 185, 129, 0.09) 0%, transparent 65%);
+  }
+
+  .auth-card-box {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 2.5rem 2.25rem;
+    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+    position: relative;
+  }
+
+  .auth-top {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .auth-icon-circle {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: #d1fae5;
+    color: #10b981;
+    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
+  }
+
+  .auth-heading {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+
+  .auth-subheading {
+    font-size: 0.92rem;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  /* Form Elements */
+  .login-form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .login-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .input-control-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-field {
+    width: 100% !important;
+    height: 48px !important;
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 0 2.75rem 0 2.85rem !important;
+    font-size: 0.95rem !important;
+    font-family: inherit !important;
+    color: #0f172a !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.18s, box-shadow 0.18s !important;
+  }
+
+  .input-field:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+    outline: none !important;
+  }
+
+  .input-left-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 2;
+    transition: color 0.18s;
+  }
+
+  .input-field:focus ~ .input-left-icon {
+    color: #10b981;
+  }
+
+  .eye-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 6px;
+    font-size: 1rem;
+    z-index: 2;
+    transition: color 0.18s;
+  }
+
+  .eye-toggle-btn:hover {
+    color: #0f172a;
+  }
+
+  .remember-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.35rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .remember-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #10b981;
+    cursor: pointer;
+  }
+
+  .submit-login-btn {
+    width: 100% !important;
+    height: 48px !important;
+    background: #10b981 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.55rem !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25) !important;
+    transition: background 0.18s, transform 0.18s, box-shadow 0.18s !important;
+  }
+
+  .submit-login-btn:hover {
+    background: #059669 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35) !important;
+  }
+
+  .submit-login-btn:active {
+    transform: translateY(0) !important;
+  }
+
+  /* Card Bottom */
+  .auth-bottom-links {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 0.88rem;
+    color: #64748b;
+  }
+
+  .auth-bottom-links a {
+    color: #10b981;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 0.25rem;
+  }
+
+  .auth-bottom-links a:hover {
+    text-decoration: underline;
+  }
+
+  .ssl-trust-note {
+    text-align: center;
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+  }
+
+  .ssl-trust-note i {
+    color: #10b981;
+  }
+
+  /* Clean Registration Modal */
+  .reg-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 9999;
+  }
+
+  .reg-modal-card {
+    width: 100%;
+    max-width: 440px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .reg-modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .reg-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem;
+  }
+
+  .reg-close-btn:hover {
+    color: #0f172a;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="auth-wrapper">
+  <div class="auth-card-box">
+    
+    <!-- Top Header -->
+    <div class="auth-top">
+      <div class="auth-icon-circle">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <h2 class="auth-heading">Welcome Back</h2>
+      <p class="auth-subheading">Enter your email or username and password to log in.</p>
+    </div>
+
+    <!-- Main Clean Login Form -->
+    <form method="POST" action="{% url 'login' %}" id="mainLoginForm">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+
+      <!-- Email / Username Input -->
+      <div class="login-form-group">
+        <label for="usernameInput" class="login-label">Email Address or Username</label>
+        <div class="input-control-wrap">
+          <input 
+            type="text" 
+            id="usernameInput" 
+            name="username" 
+            class="input-field" 
+            placeholder="Enter your email or username" 
+            required 
+            autocomplete="username"
+            autofocus
+          >
+          <i class="fa-regular fa-envelope input-left-icon"></i>
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="login-form-group">
+        <label for="passwordInput" class="login-label">Password</label>
+        <div class="input-control-wrap">
+          <input 
+            type="password" 
+            id="passwordInput" 
+            name="password" 
+            class="input-field" 
+            placeholder="Enter your password" 
+            required 
+            autocomplete="current-password"
+          >
+          <i class="fa-solid fa-lock input-left-icon"></i>
+          <button type="button" class="eye-toggle-btn" onclick="togglePasswordVisibility('passwordInput', this)" title="Show/Hide Password" aria-label="Toggle password visibility">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember Me Checkbox -->
+      <label class="remember-row">
+        <input type="checkbox" name="remember_me" checked>
+        <span>Keep me logged in</span>
+      </label>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-login-btn">
+        <span>Log In</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <!-- Bottom Sign-Up Link -->
+    <div class="auth-bottom-links">
+      Don't have an account yet? 
+      <a href="javascript:void(0)" onclick="openRegisterModal()">Create an account</a>
+    </div>
+
+    <!-- SSL Security Note -->
+    <div class="ssl-trust-note">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>Protected by 256-bit SSL encrypted connection</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- Clean Sign-Up Modal -->
+<div class="reg-modal-backdrop" id="registerModal" style="display: none;">
+  <div class="reg-modal-card">
+    <div class="reg-modal-head">
+      <div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem 0;">Create an Account</h3>
+        <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Start your personalized AI fitness plan.</p>
+      </div>
+      <button type="button" class="reg-close-btn" onclick="closeRegisterModal()">&times;</button>
+    </div>
+
+    <form method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+
+      <div class="login-form-group">
+        <label for="regFullName" class="login-label">Full Name</label>
+        <div class="input-control-wrap">
+          <input type="text" id="regFullName" name="full_name" class="input-field" style="padding-left: 1rem !important;" placeholder="e.g. Sarah Connor" required>
+        </div>
+      </div>
+
+      <div class="login-form-group">
+        <label for="regEmail" class="login-label">Email Address</label>
+        <div class="input-control-wrap">
+          <input type="email" id="regEmail" name="email" class="input-field" style="padding-left: 1rem !important;" placeholder="sarah@example.com" required>
+        </div>
+      </div>
+
+      <div class="login-form-group">
+        <label for="regUsername" class="login-label">Username</label>
+        <div class="input-control-wrap">
+          <input type="text" id="regUsername" name="username" class="input-field" style="padding-left: 1rem !important;" placeholder="sarah_fitness" required>
+        </div>
+      </div>
+
+      <div class="login-form-group">
+        <label for="regPassword" class="login-label">Password (minimum 6 characters)</label>
+        <div class="input-control-wrap">
+          <input type="password" id="regPassword" name="password" class="input-field" style="padding-left: 1rem !important;" placeholder="Choose a password" minlength="6" required>
+        </div>
+      </div>
+
+      <div class="login-form-group">
+        <label for="regConfirmPassword" class="login-label">Confirm Password</label>
+        <div class="input-control-wrap">
+          <input type="password" id="regConfirmPassword" name="confirm_password" class="input-field" style="padding-left: 1rem !important;" placeholder="Confirm password" minlength="6" required>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-login-btn" style="margin-top: 0.75rem;">
+        <span>Create Account & Continue</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'password';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
+  }
+
+  function openRegisterModal() {
+    document.getElementById('registerModal').style.display = 'flex';
+  }
+
+  function closeRegisterModal() {
+    document.getElementById('registerModal').style.display = 'none';
+  }
+
+  document.getElementById('registerModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeRegisterModal();
+    }
+  });
+</script>
+{% endblock %}

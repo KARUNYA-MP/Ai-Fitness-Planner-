@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="max-width: 860px; margin: 2rem auto 4rem; padding: 0 1.5rem;">
+
+  <!-- Step Indicator -->
+  <div class="stepper-container">
+    <div class="stepper">
+      <div class="stepper-progress" style="width: 25%;"></div>
+
+      <div class="step-item active">
+        <div class="step-number">01</div>
+        <span class="step-title">Personal Details</span>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">02</div>
+        <span class="step-title">Fitness Goal</span>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">03</div>
+        <span class="step-title">Your Plan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Assessment Card -->
+  <div class="card" style="padding: 2.75rem 2.5rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);">
+    
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <span class="section-pill">Fitness Assessment</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin: 0.5rem 0 0.35rem;">
+        Let's Build Your Fitness Plan
+      </h1>
+      <p style="font-size: 0.95rem; color: var(--text-muted);">
+        Provide your physical parameters so our AI engine can calculate optimal caloric targets and progressive routines.
+      </p>
+    </div>
+
+    <form id="assessmentForm">
+      
+      <!-- Section 1: Personal Details -->
+      <div style="margin-bottom: 2.5rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-regular fa-user" style="color: var(--primary);"></i>
+          <span>Personal Details</span>
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+          <div class="form-group">
+            <label class="form-label" for="inputName">Full Name</label>
+            <input type="text" id="inputName" class="form-control" placeholder="e.g. Alex Johnson" value="Alex Johnson" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputAge">Age (years)</label>
+            <input type="number" id="inputAge" class="form-control" placeholder="e.g. 28" min="14" max="100" value="28" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputGender">Gender</label>
+            <select id="inputGender" class="form-control form-select">
+              <option value="male" selected>Male</option>
+              <option value="female">Female</option>
+              <option value="non_binary">Other / Non-Binary</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Body Details -->
+      <div style="margin-bottom: 2.5rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-weight-scale" style="color: var(--primary);"></i>
+          <span>Body Details</span>
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+          <div class="form-group">
+            <label class="form-label" for="inputHeight">Height (cm)</label>
+            <div style="position: relative;">
+              <input type="number" id="inputHeight" class="form-control" placeholder="170" value="170" required>
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: var(--text-light); font-weight: 600;">cm</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputWeight">Current Weight (kg)</label>
+            <div style="position: relative;">
+              <input type="number" id="inputWeight" class="form-control" placeholder="70" value="70" required>
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: var(--text-light); font-weight: 600;">kg</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputTargetWeight">Target Weight (kg)</label>
+            <div style="position: relative;">
+              <input type="number" id="inputTargetWeight" class="form-control" placeholder="65" value="65" required>
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: var(--text-light); font-weight: 600;">kg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Activity Level -->
+      <div style="margin-bottom: 2.5rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-person-walking" style="color: var(--primary);"></i>
+          <span>Activity Level</span>
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Select how physically active you are during typical days.</p>
+
+        <div class="select-grid selectable-group" id="activityGroup">
+          
+          <div class="select-card">
+            <input type="radio" name="activity_level" value="sedentary">
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">🛋️</div>
+            <div class="select-card-title">Sedentary</div>
+            <div class="select-card-desc">Little to no regular physical exercise; desk job lifestyle.</div>
+          </div>
+
+          <div class="select-card">
+            <input type="radio" name="activity_level" value="lightly_active">
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">🚶</div>
+            <div class="select-card-title">Lightly Active</div>
+            <div class="select-card-desc">Light exercise or brisk walking 1-3 times per week.</div>
+          </div>
+
+          <div class="select-card selected">
+            <input type="radio" name="activity_level" value="moderately_active" checked>
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">🏃</div>
+            <div class="select-card-title">Moderately Active</div>
+            <div class="select-card-desc">Moderate workouts or sports 3-5 days per week.</div>
+          </div>
+
+          <div class="select-card">
+            <input type="radio" name="activity_level" value="very_active">
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">⚡</div>
+            <div class="select-card-title">Very Active</div>
+            <div class="select-card-desc">Hard exercise, physical labor, or sports 6-7 days per week.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 4: Fitness Level -->
+      <div style="margin-bottom: 2.5rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-layer-group" style="color: var(--primary);"></i>
+          <span>Fitness Level</span>
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Help us calibrate starting exercise volume and rest windows.</p>
+
+        <div class="select-grid selectable-group" id="fitnessLevelGroup" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+          
+          <div class="select-card selected">
+            <input type="radio" name="fitness_level" value="beginner" checked>
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">🌱</div>
+            <div class="select-card-title">Beginner</div>
+            <div class="select-card-desc">New to fitness or returning after a prolonged break. Focus on form.</div>
+          </div>
+
+          <div class="select-card">
+            <input type="radio" name="fitness_level" value="intermediate">
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">🌿</div>
+            <div class="select-card-title">Intermediate</div>
+            <div class="select-card-desc">Consistent training for 6+ months; good movement familiarity.</div>
+          </div>
+
+          <div class="select-card">
+            <input type="radio" name="fitness_level" value="advanced">
+            <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+            <div class="select-card-icon">🌳</div>
+            <div class="select-card-title">Advanced</div>
+            <div class="select-card-desc">Consistent intense training for 2+ years; high endurance capacity.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 5: Preferences (Food & Workout) -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+        
+        <!-- Food Preference -->
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-leaf" style="color: var(--primary);"></i>
+            <span>Food Preference</span>
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Determines daily macronutrient meal suggestions.</p>
+
+          <div class="selectable-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="select-card selected">
+              <input type="radio" name="food_pref" value="vegetarian" checked>
+              <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+              <div class="select-card-icon">🥗</div>
+              <div class="select-card-title">Vegetarian</div>
+              <div class="select-card-desc">Plant-based, dairy & legume protein sources.</div>
+            </div>
+
+            <div class="select-card">
+              <input type="radio" name="food_pref" value="non_vegetarian">
+              <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+              <div class="select-card-icon">🍗</div>
+              <div class="select-card-title">Non-Vegetarian</div>
+              <div class="select-card-desc">Includes lean meats, poultry, fish & eggs.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workout Preference -->
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-house-chimney" style="color: var(--primary);"></i>
+            <span>Workout Preference</span>
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Where do you plan to perform your exercises?</p>
+
+          <div class="selectable-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="select-card selected">
+              <input type="radio" name="workout_pref" value="home" checked>
+              <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+              <div class="select-card-icon">🏠</div>
+              <div class="select-card-title">Home Workout</div>
+              <div class="select-card-desc">Bodyweight & minimal resistance equipment.</div>
+            </div>
+
+            <div class="select-card">
+              <input type="radio" name="workout_pref" value="gym">
+              <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
+              <div class="select-card-icon">🏋️</div>
+              <div class="select-card-title">Gym Workout</div>
+              <div class="select-card-desc">Full access to barbells, dumbbells & machines.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 2rem;">
+        <a href="{% url 'home' %}" class="btn btn-secondary">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Home</span>
+        </a>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+          <span>Continue to Fitness Goal</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

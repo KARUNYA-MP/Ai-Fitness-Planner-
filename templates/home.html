@@ -1,0 +1,312 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ====================================================================
+     HERO SECTION
+     ==================================================================== -->
+<section class="hero-section">
+  <div class="hero-container">
+    
+    <!-- Hero Left Column: Content -->
+    <div class="hero-content">
+      <div class="hero-pill">
+        <i class="fa-solid fa-sparkles"></i>
+        <span>Next-Generation Intelligent Fitness</span>
+      </div>
+
+      <h1 class="hero-title">
+        Your Personal <span>AI Fitness</span> Planner
+      </h1>
+
+      <p class="hero-subtitle">
+        Build better habits, achieve your fitness goals, and get personalized workout and nutrition guidance powered by smart fitness algorithms.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="{% url 'assessment' %}" class="btn btn-primary btn-lg">
+          <span>Get Started</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#features" class="btn btn-secondary btn-lg">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Features</span>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <h4>100%</h4>
+          <p>Personalized Plans</p>
+        </div>
+        <div class="hero-stat-item">
+          <h4>30-Day</h4>
+          <p>Structured Routines</p>
+        </div>
+        <div class="hero-stat-item">
+          <h4>24/7</h4>
+          <p>AI Fitness Guidance</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Right Column: Modern Visual Illustration & Dynamic Mockup -->
+    <div class="hero-visual">
+      
+      <!-- Floating Badge 1 (Calorie Burn) -->
+      <div class="floating-badge floating-badge-1">
+        <div class="floating-icon" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+          <i class="fa-solid fa-fire"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Daily Burn</div>
+          <div style="font-size: 0.95rem; font-weight: 800; color: var(--text-main);">480 kcal 🔥</div>
+        </div>
+      </div>
+
+      <!-- Main Card Mockup -->
+      <div class="hero-card-mockup">
+        <div class="mockup-header">
+          <div class="mockup-profile">
+            <div class="mockup-avatar">
+              <i class="fa-solid fa-person-running"></i>
+            </div>
+            <div>
+              <div class="mockup-name">Today's Routine</div>
+              <div class="mockup-goal">Full Body Transformation</div>
+            </div>
+          </div>
+          <span style="font-size: 0.75rem; background: var(--primary-subtle); color: var(--primary-dark); font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 9999px;">
+            Active
+          </span>
+        </div>
+
+        <!-- Progress Ring Preview -->
+        <div style="background: var(--bg-card-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem; border: 1px solid var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">Goal Progress</span>
+            <span style="font-size: 0.85rem; font-weight: 800; color: var(--primary);">70%</span>
+          </div>
+          <div class="progress-bar-custom">
+            <div class="progress-fill" style="width: 70%;"></div>
+          </div>
+        </div>
+
+        <!-- Exercises List in Mockup -->
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <i class="fa-solid fa-circle-check" style="color: var(--primary);"></i>
+              <span style="font-size: 0.85rem; font-weight: 600;">Squats & Lunges</span>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">3 × 15 reps</span>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <i class="fa-solid fa-circle-check" style="color: var(--primary);"></i>
+              <span style="font-size: 0.85rem; font-weight: 600;">Upper Body Push-ups</span>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">3 × 10 reps</span>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <i class="fa-regular fa-circle" style="color: var(--text-light);"></i>
+              <span style="font-size: 0.85rem; font-weight: 600;">Isometric Plank</span>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">Up Next</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.25rem;">
+          <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm" style="width: 100%;">
+            <span>Launch Live Dashboard</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating Badge 2 (Water Hydration) -->
+      <div class="floating-badge floating-badge-2">
+        <div class="floating-icon" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Hydration Tracker</div>
+          <div style="font-size: 0.95rem; font-weight: 800; color: var(--text-main);">5 / 8 Glasses 💧</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================================
+     FEATURES SECTION
+     ==================================================================== -->
+<section class="features-section" id="features">
+  <div class="section-header">
+    <span class="section-pill">Core Capabilities</span>
+    <h2 class="section-title">Everything You Need To Thrive</h2>
+    <p class="section-subtitle">Tailored workout regimens, precision nutrition, and instant AI guidance crafted to accelerate your physical transformation.</p>
+  </div>
+
+  <div class="features-grid">
+    
+    <!-- Feature 1: Personalized Fitness Plan -->
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+      </div>
+      <h3>Personalized Fitness Plan</h3>
+      <p>Get an adaptive fitness plan tailored precisely to your current biometric baseline, body goals, and preferred training schedule.</p>
+      <a href="{% url 'assessment' %}" class="feature-link">
+        <span>Start Assessment</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Feature 2: Smart Workout Planner -->
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <i class="fa-solid fa-dumbbell"></i>
+      </div>
+      <h3>Smart Workout Planner</h3>
+      <p>Follow customized workouts designed for your fitness level, with exercise breakdowns, set & rep instructions, and recovery times.</p>
+      <a href="{% url 'workout' %}" class="feature-link">
+        <span>Explore Workouts</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Feature 3: Diet Planner -->
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <i class="fa-solid fa-bowl-food"></i>
+      </div>
+      <h3>Diet Planner</h3>
+      <p>Explore daily meal suggestions with clean macro breakdowns (carbs, protein, fats) tailored to Weight Loss, Gain, or Maintenance.</p>
+      <a href="{% url 'diet' %}" class="feature-link">
+        <span>View Meal Plans</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Feature 4: Progress Tracking -->
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <i class="fa-solid fa-chart-line"></i>
+      </div>
+      <h3>Progress Tracking</h3>
+      <p>Track your weight changes, workout completion streaks, and weekly activity stats with clean, high-clarity visual analytics.</p>
+      <a href="{% url 'progress' %}" class="feature-link">
+        <span>Track Analytics</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Feature 5: BMI Calculator -->
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <i class="fa-solid fa-calculator"></i>
+      </div>
+      <h3>BMI Calculator</h3>
+      <p>Calculate your Body Mass Index instantly and understand your physical baseline across Underweight, Normal, Overweight, and Obesity ranges.</p>
+      <a href="{% url 'bmi_result' %}" class="feature-link">
+        <span>Calculate BMI</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Feature 6: AI Fitness Assistant -->
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <h3>AI Fitness Assistant</h3>
+      <p>Get instant answers to fitness, workout form, recovery, and meal planning questions 24/7 with our responsive conversational assistant.</p>
+      <a href="{% url 'chatbot' %}" class="feature-link">
+        <span>Chat with AI</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================================
+     HOW IT WORKS SECTION
+     ==================================================================== -->
+<section class="how-section" id="how-it-works">
+  <div class="how-container">
+    <div class="section-header">
+      <span class="section-pill">Simple 4-Step Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Get up and running with your customized AI Fitness blueprint in under two minutes.</p>
+    </div>
+
+    <div class="how-steps-grid">
+      
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-icon-bubble">
+          <i class="fa-solid fa-user-pen"></i>
+          <span class="step-badge">1</span>
+        </div>
+        <h4>Step 1: Enter Details</h4>
+        <p>Input your age, gender, height, current weight, target weight, and activity baseline.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-icon-bubble">
+          <i class="fa-solid fa-bullseye"></i>
+          <span class="step-badge">2</span>
+        </div>
+        <h4>Step 2: Select Goal</h4>
+        <p>Choose Weight Loss, Weight Gain, Weight Maintenance, or General Athletic Fitness.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-icon-bubble">
+          <i class="fa-solid fa-receipt"></i>
+          <span class="step-badge">3</span>
+        </div>
+        <h4>Step 3: Get Your Plan</h4>
+        <p>Review your instant BMI result, calculated calorie needs, and personalized 30-day plan.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card">
+        <div class="step-icon-bubble">
+          <i class="fa-solid fa-trophy"></i>
+          <span class="step-badge">4</span>
+        </div>
+        <h4>Step 4: Track Progress</h4>
+        <p>Log your daily workouts, monitor water hydration, and watch your transformation unfold.</p>
+      </div>
+
+    </div>
+
+    <!-- CTA Banner -->
+    <div style="margin-top: 5rem; background: linear-gradient(135deg, #10b981 0%, #047857 100%); border-radius: var(--radius-xl); padding: 3rem 2.5rem; text-align: center; color: #fff; box-shadow: var(--shadow-lg);">
+      <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem;">Ready to Unlock Your Best Self?</h3>
+      <p style="font-size: 1.05rem; opacity: 0.95; max-width: 580px; margin: 0 auto 2rem;">Take the 60-second assessment now and get your tailored workout and nutrition roadmap.</p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="{% url 'assessment' %}" class="btn btn-secondary btn-lg" style="color: var(--primary-dark); font-weight: 700;">
+          <span>Start Assessment</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary btn-lg" style="color: #fff; border-color: rgba(255,255,255,0.4);">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>View Dashboard</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

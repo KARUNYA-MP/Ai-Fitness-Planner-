@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_heading %}Diet & Nutrition Planner{% endblock %}
+{% block page_subheading %}Balanced meal breakdowns, macronutrient targets, and healthy dietary tips{% endblock %}
+
+{% block content %}
+<!-- Top Calorie Budget Banner -->
+<div class="card" style="margin-bottom: 2rem; padding: 2rem 2.25rem; border-radius: var(--radius-xl);">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+    <div>
+      <span class="section-pill">Daily Nutrition Target</span>
+      <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+        1,605 kcal / day
+      </h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+        Optimized for steady fat loss while sustaining lean muscle mass.
+      </p>
+    </div>
+
+    <!-- Macros Distribution Bar -->
+    <div style="min-width: 320px; flex: 1; max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem;">
+        <span style="color: var(--primary-dark);">Protein: 78g (20%)</span>
+        <span style="color: #0284c7;">Carbs: 210g (55%)</span>
+        <span style="color: #ea580c;">Fats: 45g (25%)</span>
+      </div>
+      <div style="display: flex; height: 10px; border-radius: 9999px; overflow: hidden;">
+        <div style="width: 20%; background: var(--primary);" title="Protein 20%"></div>
+        <div style="width: 55%; background: #38bdf8;" title="Carbohydrates 55%"></div>
+        <div style="width: 25%; background: #f97316;" title="Healthy Fats 25%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================
+     DAILY MEAL PLANNER WITH INTERACTIVE TABS
+     ==================================================================== -->
+<div class="card" style="margin-bottom: 2.5rem; border-radius: var(--radius-xl);">
+  <div class="card-header-clean" style="margin-bottom: 1.5rem;">
+    <div>
+      <div class="card-title">
+        <i class="fa-solid fa-utensils" style="color: var(--primary);"></i>
+        <span>Daily Meal Schedule</span>
+      </div>
+      <div class="card-subtitle">Select a meal time to inspect macro ingredients and preparation tips</div>
+    </div>
+  </div>
+
+  <!-- Meal Tabs -->
+  <div class="diet-tabs">
+    <button class="diet-tab-btn active" data-target="meal-breakfast">
+      <i class="fa-solid fa-mug-saucer"></i> Breakfast
+    </button>
+    <button class="diet-tab-btn" data-target="meal-lunch">
+      <i class="fa-solid fa-bowl-rice"></i> Lunch
+    </button>
+    <button class="diet-tab-btn" data-target="meal-snack">
+      <i class="fa-solid fa-apple-whole"></i> Evening Snack
+    </button>
+    <button class="diet-tab-btn" data-target="meal-dinner">
+      <i class="fa-solid fa-plate-wheat"></i> Dinner
+    </button>
+  </div>
+
+  <!-- Tab Content 1: Breakfast -->
+  <div class="meal-detail-section" id="meal-breakfast">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--primary); letter-spacing: 0.05em;">Morning Fuel (08:30 AM)</span>
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">
+          {{ meals.breakfast.title }}
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--text-body); font-weight: 600; margin-top: 0.35rem;">
+          <i class="fa-solid fa-basket-shopping" style="color: var(--primary); margin-right: 0.4rem;"></i>
+          {{ meals.breakfast.food }}
+        </p>
+      </div>
+      <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.6rem 1.2rem; text-align: right;">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Preparation Time</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--text-main);">{{ meals.breakfast.prep_time }}</div>
+      </div>
+    </div>
+
+    <!-- Macro Pills -->
+    <div class="macro-pills">
+      <div class="macro-box">
+        <h6>Calories</h6>
+        <div class="macro-val" style="color: #f97316;">{{ meals.breakfast.calories }} <span style="font-size: 0.85rem;">kcal</span></div>
+      </div>
+      <div class="macro-box">
+        <h6>Protein</h6>
+        <div class="macro-val" style="color: var(--primary);">{{ meals.breakfast.protein }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Carbs</h6>
+        <div class="macro-val" style="color: #0284c7;">{{ meals.breakfast.carbs }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Fats</h6>
+        <div class="macro-val" style="color: #eab308;">{{ meals.breakfast.fats }}g</div>
+      </div>
+    </div>
+
+    <!-- Healthy Food Tip -->
+    <div class="exercise-tip" style="background: #f0fdf4; border-left-color: var(--primary); margin-top: 1.5rem;">
+      <strong style="color: var(--primary-dark);"><i class="fa-solid fa-seedling"></i> Healthy Food Tip:</strong>
+      {{ meals.breakfast.tip }}
+    </div>
+  </div>
+
+  <!-- Tab Content 2: Lunch -->
+  <div class="meal-detail-section" id="meal-lunch" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--primary); letter-spacing: 0.05em;">Midday Sustenance (01:15 PM)</span>
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">
+          {{ meals.lunch.title }}
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--text-body); font-weight: 600; margin-top: 0.35rem;">
+          <i class="fa-solid fa-basket-shopping" style="color: var(--primary); margin-right: 0.4rem;"></i>
+          {{ meals.lunch.food }}
+        </p>
+      </div>
+      <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.6rem 1.2rem; text-align: right;">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Preparation Time</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--text-main);">{{ meals.lunch.prep_time }}</div>
+      </div>
+    </div>
+
+    <!-- Macro Pills -->
+    <div class="macro-pills">
+      <div class="macro-box">
+        <h6>Calories</h6>
+        <div class="macro-val" style="color: #f97316;">{{ meals.lunch.calories }} <span style="font-size: 0.85rem;">kcal</span></div>
+      </div>
+      <div class="macro-box">
+        <h6>Protein</h6>
+        <div class="macro-val" style="color: var(--primary);">{{ meals.lunch.protein }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Carbs</h6>
+        <div class="macro-val" style="color: #0284c7;">{{ meals.lunch.carbs }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Fats</h6>
+        <div class="macro-val" style="color: #eab308;">{{ meals.lunch.fats }}g</div>
+      </div>
+    </div>
+
+    <!-- Healthy Food Tip -->
+    <div class="exercise-tip" style="background: #f0fdf4; border-left-color: var(--primary); margin-top: 1.5rem;">
+      <strong style="color: var(--primary-dark);"><i class="fa-solid fa-seedling"></i> Healthy Food Tip:</strong>
+      {{ meals.lunch.tip }}
+    </div>
+  </div>
+
+  <!-- Tab Content 3: Snack -->
+  <div class="meal-detail-section" id="meal-snack" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--primary); letter-spacing: 0.05em;">Afternoon Snack (05:00 PM)</span>
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">
+          {{ meals.snack.title }}
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--text-body); font-weight: 600; margin-top: 0.35rem;">
+          <i class="fa-solid fa-basket-shopping" style="color: var(--primary); margin-right: 0.4rem;"></i>
+          {{ meals.snack.food }}
+        </p>
+      </div>
+      <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.6rem 1.2rem; text-align: right;">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Preparation Time</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--text-main);">{{ meals.snack.prep_time }}</div>
+      </div>
+    </div>
+
+    <!-- Macro Pills -->
+    <div class="macro-pills">
+      <div class="macro-box">
+        <h6>Calories</h6>
+        <div class="macro-val" style="color: #f97316;">{{ meals.snack.calories }} <span style="font-size: 0.85rem;">kcal</span></div>
+      </div>
+      <div class="macro-box">
+        <h6>Protein</h6>
+        <div class="macro-val" style="color: var(--primary);">{{ meals.snack.protein }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Carbs</h6>
+        <div class="macro-val" style="color: #0284c7;">{{ meals.snack.carbs }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Fats</h6>
+        <div class="macro-val" style="color: #eab308;">{{ meals.snack.fats }}g</div>
+      </div>
+    </div>
+
+    <!-- Healthy Food Tip -->
+    <div class="exercise-tip" style="background: #f0fdf4; border-left-color: var(--primary); margin-top: 1.5rem;">
+      <strong style="color: var(--primary-dark);"><i class="fa-solid fa-seedling"></i> Healthy Food Tip:</strong>
+      {{ meals.snack.tip }}
+    </div>
+  </div>
+
+  <!-- Tab Content 4: Dinner -->
+  <div class="meal-detail-section" id="meal-dinner" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--primary); letter-spacing: 0.05em;">Night Recovery (08:00 PM)</span>
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">
+          {{ meals.dinner.title }}
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--text-body); font-weight: 600; margin-top: 0.35rem;">
+          <i class="fa-solid fa-basket-shopping" style="color: var(--primary); margin-right: 0.4rem;"></i>
+          {{ meals.dinner.food }}
+        </p>
+      </div>
+      <div style="background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 0.6rem 1.2rem; text-align: right;">
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Preparation Time</div>
+        <div style="font-size: 1rem; font-weight: 700; color: var(--text-main);">{{ meals.dinner.prep_time }}</div>
+      </div>
+    </div>
+
+    <!-- Macro Pills -->
+    <div class="macro-pills">
+      <div class="macro-box">
+        <h6>Calories</h6>
+        <div class="macro-val" style="color: #f97316;">{{ meals.dinner.calories }} <span style="font-size: 0.85rem;">kcal</span></div>
+      </div>
+      <div class="macro-box">
+        <h6>Protein</h6>
+        <div class="macro-val" style="color: var(--primary);">{{ meals.dinner.protein }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Carbs</h6>
+        <div class="macro-val" style="color: #0284c7;">{{ meals.dinner.carbs }}g</div>
+      </div>
+      <div class="macro-box">
+        <h6>Fats</h6>
+        <div class="macro-val" style="color: #eab308;">{{ meals.dinner.fats }}g</div>
+      </div>
+    </div>
+
+    <!-- Healthy Food Tip -->
+    <div class="exercise-tip" style="background: #f0fdf4; border-left-color: var(--primary); margin-top: 1.5rem;">
+      <strong style="color: var(--primary-dark);"><i class="fa-solid fa-seedling"></i> Healthy Food Tip:</strong>
+      {{ meals.dinner.tip }}
+    </div>
+  </div>
+
+</div>
+
+<!-- ====================================================================
+     WEEKLY DIET PLAN SECTION
+     ==================================================================== -->
+<div class="card" style="border-radius: var(--radius-xl);">
+  <div class="card-header-clean">
+    <div>
+      <div class="card-title">
+        <i class="fa-solid fa-calendar-week" style="color: var(--primary);"></i>
+        <span>Weekly Diet Overview (Monday – Sunday)</span>
+      </div>
+      <div class="card-subtitle">Designed to maintain high metabolic flexibility and micronutrient variety</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+    {% for day in weekly_overview %}
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--bg-card-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); flex-wrap: wrap; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span style="width: 90px; font-weight: 800; font-size: 0.95rem; color: var(--text-main);">
+          {{ day.day }}
+        </span>
+        <span style="font-size: 0.875rem; color: var(--text-muted); font-weight: 500;">
+          <i class="fa-solid fa-sparkles" style="color: var(--primary); margin-right: 0.3rem;"></i> {{ day.focus }}
+        </span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">{{ day.macros }}</span>
+        <span style="font-size: 0.95rem; font-weight: 800; color: #f97316;">{{ day.cals }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
