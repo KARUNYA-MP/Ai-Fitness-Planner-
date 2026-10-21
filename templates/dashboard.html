@@ -18,7 +18,11 @@
       <i class="fa-solid fa-fire-flame-curved"></i> Daily Habit Tracker
     </span>
     <h2 style="font-size: 2.15rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem;">
-      Good Morning, Alex 👋
+      {% if stats.greeting %}
+        {{ stats.greeting }}
+      {% else %}
+        Good Morning, {{ user.first_name|default:user.username|default:'Friend'|title }} 👋
+      {% endif %}
     </h2>
     <p style="font-size: 1.05rem; opacity: 0.95; line-height: 1.5; margin-bottom: 1.5rem;">
       Let's make today a healthier day. You have 3 workouts completed this week and your hydration goal is on track.

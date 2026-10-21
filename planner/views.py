@@ -253,9 +253,18 @@ def dashboard(request):
     """Main Fitness Dashboard"""
     user_display_name = request.user.get_full_name() or request.user.username.capitalize() or 'Alex Johnson'
     first_name = request.user.first_name or request.user.username.capitalize() or 'Alex'
+    import datetime
+    current_hour = datetime.datetime.now().hour
+    if 5 <= current_hour < 12:
+        time_greeting = "Good Morning"
+    elif 12 <= current_hour < 17:
+        time_greeting = "Good Afternoon"
+    else:
+        time_greeting = "Good Evening"
+
     dummy_stats = {
         'user_name': user_display_name,
-        'greeting': f'Good Day, {first_name} 👋',
+        'greeting': f'{time_greeting}, {first_name} 👋',
         'subtitle': "Let's make today a healthier day.",
         'current_weight': 70,
         'target_weight': 65,

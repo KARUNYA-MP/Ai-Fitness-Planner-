@@ -40,7 +40,7 @@
         <i class="fa-solid fa-robot"></i>
       </div>
       <div class="message-bubble">
-        Hello Alex! 👋 I'm your AI Fitness Assistant. I can help guide your workouts, customize meal choices, advise on recovery, or answer any fitness questions. How can I help you today?
+        Hello {{ user.first_name|default:user.username|default:'there'|title }}! 👋 I'm your AI Fitness Assistant. I can help guide your workouts, customize meal choices, advise on recovery, or answer any fitness questions. How can I help you today?
         <div class="message-time">10:00 AM</div>
       </div>
     </div>
